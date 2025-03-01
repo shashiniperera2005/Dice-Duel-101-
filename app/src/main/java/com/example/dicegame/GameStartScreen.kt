@@ -310,18 +310,21 @@
 //}
 package com.example.dicegame
 
-//import androidx.compose.foundation.layout.*
-//import androidx.compose.foundation.shape.RoundedCornerShape
-//import androidx.compose.material.icons.Icons
-//import androidx.compose.material.icons.filled.ArrowBack
-//import androidx.compose.material3.*
-//import androidx.compose.runtime.*
-//import androidx.compose.ui.Alignment
-//import androidx.compose.ui.Modifier
-//import androidx.compose.ui.graphics.Color
-//import androidx.compose.ui.text.font.FontWeight
-//import androidx.compose.ui.unit.dp
-//import androidx.compose.ui.unit.sp
+import androidx.compose.runtime.Composable
+
+import androidx.compose.foundation.layout.*
+//import androidx.compose.foundation.layout.ColumnScopeInstance.weight
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 //
 //@OptIn(ExperimentalMaterial3Api::class)
 //@Composable
@@ -507,6 +510,104 @@ package com.example.dicegame
 //    }
 //}
 
-Button(
+//@Composable
+//fun GameStartScreen(onBackPressed: () -> Unit) {
+//    Box(
+//        modifier = Modifier.fillMaxWidth(),
+//        contentAlignment = Alignment.Center // Centers content inside the Box
+//    ) {
+//        Button(
+//            onClick = { /* TODO: Implement action */ },
+//            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2196F3)),
+//            modifier = Modifier.width(200.dp).padding(8.dp)
+//        ) {
+//            Text(
+//                "Throw",
+//                color = Color.White,
+//                fontWeight = FontWeight.Bold
+//            )
+//        }
+//    }
+//
+//
+//}
+//@Composable
+//fun GameStartScreen(onBackPressed: () -> Unit) {
+//    Column(
+//        modifier = Modifier
+//            .padding(20.dp)
+//            .fillMaxWidth(),
+//        horizontalAlignment = Alignment.CenterHorizontally
+//    ) {
+//        Button(
+//            onClick = { /* TODO: Add action */ },
+//            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF6366F1)), // Blue color
+//            shape = RoundedCornerShape(8.dp),
+//            modifier = Modifier
+//                .width(350.dp) // Set width similar to the image
+//                .height(40.dp) // Adjust height if needed
+//        ) {
+//            Text("Throw", color = Color.White, fontWeight = FontWeight.Bold)
+//        }
+//
+//        Spacer(modifier = Modifier.height(8.dp))
+//
+//        Button(
+//            onClick = { /* TODO: Add action */ },
+//            colors = ButtonDefaults.buttonColors(containerColor = Color.Black),
+//            shape = RoundedCornerShape(8.dp),
+//            modifier = Modifier
+//                .width(350.dp) // Match width with the first button
+//                .height(45.dp)
+//        ) {
+//            Text("Score", color = Color.White,
+//                fontWeight = if (text == "Throw" || text == "Score") FontWeight.Bold else FontWeight.Normal // Bold for both buttons)
+//        }
+//    }
+//}
+@Composable
+fun GameStartScreen(onBackPressed: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        // Back Button
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            IconButton(onClick = onBackPressed) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack, // Back icon
+                    contentDescription = "Back",
+                    tint = Color.Black // Change color if needed
+                )
+            }
+        }
+        //Content for the game
 
-)
+        // Spacer to push content down
+        Spacer(modifier = Modifier.weight(1f))
+
+        // Buttons at the bottom
+        listOf("Throw" to Color(0xFF6366F1), "Score" to Color.Black).forEach { (text, color) ->
+            Button(
+                onClick = { /* TODO: Add action */ },
+                colors = ButtonDefaults.buttonColors(containerColor = color),
+                shape = RoundedCornerShape(8.dp),
+                modifier = Modifier
+                    .width(350.dp)
+                    .height(40.dp)
+            ) {
+                Text(text, color = Color.White, fontWeight = FontWeight.Bold)
+            }
+
+            Spacer(modifier = Modifier.height(10.dp))
+        }
+    }
+}
+
+
+

@@ -13,7 +13,7 @@ class GameActivity : ComponentActivity() {
         setContent {
             DiceGameTheme {
                 Surface(color = Color.White) {
-                    GameScreen(
+                    GameStartScreen(
                         onBackPressed = { finish() }
                     )
                 }

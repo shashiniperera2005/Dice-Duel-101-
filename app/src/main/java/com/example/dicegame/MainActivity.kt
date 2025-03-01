@@ -115,7 +115,7 @@ class MainActivity : ComponentActivity() {
 
                     // In MainActivity.kt, modify the GradientButton for "New Game":
                     GradientButton(
-                        text = "New Game",
+                        text = "NEW GAME",
                         textColor = Color.White,
                         gradient = Brush.horizontalGradient(
                             colors = listOf(color1, color2)
@@ -129,7 +129,7 @@ class MainActivity : ComponentActivity() {
                     Spacer(modifier = Modifier.height(10.dp))
 
                     GradientButton(
-                        text = "About",
+                        text = "ABOUT",
                         textColor = Color.White,
                         gradient = Brush.horizontalGradient(
                             colors = listOf(color1, color2)
