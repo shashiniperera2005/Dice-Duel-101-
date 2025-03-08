@@ -311,7 +311,7 @@
 package com.example.dicegame
 
 import androidx.compose.runtime.Composable
-
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 //import androidx.compose.foundation.layout.ColumnScopeInstance.weight
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -322,9 +322,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+//import androidx.compose.ui.unit.sp
+import kotlin.random.Random
+
 //
 //@OptIn(ExperimentalMaterial3Api::class)
 //@Composable
@@ -566,7 +569,85 @@ import androidx.compose.ui.unit.sp
 //    }
 //}
 @Composable
+//fun GameStartScreen(onBackPressed: () -> Unit) {
+//    var diceValues by remember { mutableStateOf(List(5){ Random.nextInt(1,7)}) }
+//    Column(
+//        modifier = Modifier
+//            .fillMaxSize()
+//            .padding(20.dp),
+//        horizontalAlignment = Alignment.CenterHorizontally
+//    ) {
+//        // Back Button
+//        Row(
+//            modifier = Modifier.fillMaxWidth(),
+//            verticalAlignment = Alignment.CenterVertically
+//        ) {
+//            IconButton(onClick = onBackPressed) {
+//                Icon(
+//                    imageVector = Icons.Default.ArrowBack, // Back icon
+//                    contentDescription = "Back",
+//                    tint = Color.Black // Change color if needed
+//                )
+//            }
+//        }
+//        //Content for the game
+//
+//        // Spacer to push content down
+//        //Spacer(modifier = Modifier.weight(1f))
+//        Spacer(modifier = Modifier.height(20.dp))
+//
+//         //Display 5 dice images in a row
+//        Row(
+//            modifier = Modifier.fillMaxSize(),
+//            horizontalArrangement = Arrangement.Center
+//        ){
+//            diceValues.forEach {diceValue ->
+//                Image(
+//                    painter = painterResource(id = getDiceDrawable(diceValue)),
+//                    contentDescription  = "Dice $diceValue",
+//                    modifier = Modifier.size(60.dp)
+//                )
+//                Spacer(modifier = Modifier.width(8.dp))
+//            }
+//        }
+//        //Spacer(modifier = Modifier.height(20.dp))
+//        Spacer(modifier = Modifier.height(40.dp))
+//
+//        // Buttons at the bottom
+//        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+//            listOf("Throw" to Color(0xFF6366F1), "Score" to Color.Black).forEach { (text, color) ->
+//                Button(
+//                    onClick = { if (text == "Throw") {
+//                        diceValues = List(5) { Random.nextInt(1, 7) } // Roll 5 new dice
+//                    }},
+//                    colors = ButtonDefaults.buttonColors(containerColor = color),
+//                    shape = RoundedCornerShape(8.dp),
+//                    modifier = Modifier
+//                        .width(350.dp)
+//                        .height(40.dp)
+//                ) {
+//                    Text(text, color = Color.White, fontWeight = FontWeight.Bold)
+//                }
+//
+//                Spacer(modifier = Modifier.height(10.dp))
+//            }
+//        }
+//    }
+//}
+//
+//fun getDiceDrawable(value: Int): Int{
+//    return when (value) {
+//        1 -> R.drawable.dice_1
+//        2 -> R.drawable.dice_2
+//        3 -> R.drawable.dice_3
+//        4 -> R.drawable.dice_4
+//        5 -> R.drawable.dice_5
+//        else -> R.drawable.dice_6
+//    }
+//}
 fun GameStartScreen(onBackPressed: () -> Unit) {
+    var diceValues by remember { mutableStateOf(List(5) { Random.nextInt(1, 7) }) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -580,34 +661,67 @@ fun GameStartScreen(onBackPressed: () -> Unit) {
         ) {
             IconButton(onClick = onBackPressed) {
                 Icon(
-                    imageVector = Icons.Default.ArrowBack, // Back icon
+                    imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Back",
-                    tint = Color.Black // Change color if needed
+                    tint = Color.Black
                 )
             }
         }
-        //Content for the game
 
-        // Spacer to push content down
-        Spacer(modifier = Modifier.weight(1f))
+        // Spacer to push content down slightly (instead of weight)
+        Spacer(modifier = Modifier.height(20.dp))
+
+        // Display 5 dice images in a row
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            diceValues.forEach { diceValue ->
+                Image(
+                    painter = painterResource(id = getDiceDrawable(diceValue)),
+                    contentDescription = "Dice $diceValue",
+                    modifier = Modifier.size(60.dp)
+                )
+                Spacer(modifier = Modifier.width(8.dp))
+            }
+        }
+
+        // Another spacer to ensure buttons are visible
+        Spacer(modifier = Modifier.height(40.dp))
 
         // Buttons at the bottom
-        listOf("Throw" to Color(0xFF6366F1), "Score" to Color.Black).forEach { (text, color) ->
-            Button(
-                onClick = { /* TODO: Add action */ },
-                colors = ButtonDefaults.buttonColors(containerColor = color),
-                shape = RoundedCornerShape(8.dp),
-                modifier = Modifier
-                    .width(350.dp)
-                    .height(40.dp)
-            ) {
-                Text(text, color = Color.White, fontWeight = FontWeight.Bold)
-            }
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            listOf("Throw" to Color(0xFF6366F1), "Score" to Color.Black).forEach { (text, color) ->
+                Button(
+                    onClick = {
+                        if (text == "Throw") {
+                            diceValues = List(5) { Random.nextInt(1, 7) } // Roll 5 new dice
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(containerColor = color),
+                    shape = RoundedCornerShape(8.dp),
+                    modifier = Modifier
+                        .width(250.dp)
+                        .height(50.dp)
+                ) {
+                    Text(text, color = Color.White, fontWeight = FontWeight.Bold)
+                }
 
-            Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(10.dp)) // Space between buttons
+            }
         }
     }
 }
 
-
+// Helper function to get the correct dice image
+fun getDiceDrawable(value: Int): Int {
+    return when (value) {
+        1 -> R.drawable.dice_1
+        2 -> R.drawable.dice_2
+        3 -> R.drawable.dice_3
+        4 -> R.drawable.dice_4
+        5 -> R.drawable.dice_5
+        else -> R.drawable.dice_6
+    }
+}
 
